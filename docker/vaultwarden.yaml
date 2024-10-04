@@ -1,0 +1,14 @@
+version: "3"
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    environment:
+      - USER=1000:1000
+      - DOMAIN=https://pw.koder.page
+    volumes:
+      - /syno/docker/vaultwarden:/data
+    ports:
+      - 3012:3012
+      - 10001:80
+    restart: unless-stopped
