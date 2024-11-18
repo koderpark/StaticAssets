@@ -1,3 +1,4 @@
+version: "3"
 services:
   minecraft:
     image: itzg/minecraft-server:latest
@@ -11,7 +12,8 @@ services:
       EULA: "TRUE"
       TYPE: "PAPER"
       MEMORY: "4G"
-      VERSION: "1.20.6"
+      VERSION: "1.21.1"
+      SEED: "-2243392742249635263"
       UID: 1000
       GID: 1000
     volumes:
