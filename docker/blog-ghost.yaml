@@ -3,7 +3,6 @@ services:
   ghost:
     container_name: blog-ghost
     image: ghost:latest
-    user: "1000:1000"
     ports:
       - 10005:2368
     restart: always
@@ -18,12 +17,11 @@ services:
       database__connection__password: ${MYSQL}
       database__connection__database: ghost
     volumes:
-      - /syno/docker/ghost/:/var/lib/ghost/content
+      - ghost:/var/lib/ghost/content
 
   db:
     container_name: blog-db
     image: mysql:8.0
-    user: "1000:1000"
     ports:
       - 3306:3306
     restart: always
@@ -31,4 +29,16 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL}
     volumes:
-      - /syno/docker/ghost-db/:/var/lib/mysql
+      - ghost-db:/var/lib/mysql
+
+volumes:
+  ghost:
+    driver_opts:
+      type: nfs
+      o: "addr=192.168.10.2,vers=4.1,rw"
+      device: ":/volume1/01_Docker/ghost"
+  ghost-db:
+    driver_opts:
+      type: nfs
+      o: "addr=192.168.10.2,vers=4.1,rw"
+      device: ":/volume1/01_Docker/ghost-db"
