@@ -1,0 +1,26 @@
+version: "3"
+services:
+  minecraft:
+    image: itzg/minecraft-server:latest
+    container_name: minecraft
+    tty: true
+    stdin_open: true
+    ports:
+      - "25565:25565"
+      - "8123:8123"
+    environment:
+      EULA: "TRUE"
+      TYPE: "PAPER"
+      MAX_MEMORY: "10G"
+      VERSION: "1.21.1"
+      SEED: "-2243392742249635263"
+      UID: 0
+      GID: 0
+    volumes:
+      - minecraft:/data
+volumes:
+  minecraft:
+    driver_opts:
+      type: nfs
+      o: "addr=192.168.10.2,nfsvers=4,rw"
+      device: ":/volume1/01_Docker/minecraft"

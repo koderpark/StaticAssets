@@ -1,0 +1,16 @@
+version: "3"
+services:
+  vaultwarden:
+    container_name: vaultwarden
+    image: vaultwarden/server:latest
+    restart: unless-stopped
+    volumes:
+      - data:/data/
+    ports:
+      - 10001:80
+volumes:
+  data:
+    driver_opts:
+      type: nfs
+      o: "addr=192.168.10.2,nfsvers=4,rw"
+      device: ":/volume1/01_Docker/password"

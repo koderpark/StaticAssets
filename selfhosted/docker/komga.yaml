@@ -1,0 +1,29 @@
+version: "3.3"
+services:
+  komga:
+    image: gotson/komga
+    container_name: komga
+    user: 1000:1000
+    volumes:
+      - komga-config:/config
+      - komga-tmp:/tmp
+      - book:/data:ro
+    ports:
+      - 10002:8080
+    restart: unless-stopped
+volumes:
+  komga-config:
+    driver_opts:
+      type: nfs
+      o: "addr=192.168.10.2,vers=4.1,rw"
+      device: ":/volume1/01_Docker/komga/config"
+  komga-tmp:
+    driver_opts:
+      type: nfs
+      o: "addr=192.168.10.2,vers=4.1,rw"
+      device: ":/volume1/01_Docker/komga/tmp"
+  book:
+    driver_opts:
+      type: nfs
+      o: "addr=192.168.10.2,vers=4.1,rw"
+      device: ":/volume2/02_Media/Book"

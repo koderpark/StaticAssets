@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    privileged: true
+    user: root
+    environment:
+      - TZ=Asia/Seoul
+    volumes:
+      - config:/config
+      - media:/data
+    ports:
+      - 8096:8096
+volumes:
+  config:
+    driver_opts:
+      type: nfs
+      o: "addr=192.168.10.2,nfsvers=4,rw"
+      device: ":/volume1/01_Docker/jellyfin"
+  media:
+    driver_opts:
+      type: nfs
+      o: "addr=192.168.10.2,nfsvers=4,rw"
+      device: ":/volume2/02_Media"
