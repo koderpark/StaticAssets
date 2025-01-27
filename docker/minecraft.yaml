@@ -11,10 +11,16 @@ services:
     environment:
       EULA: "TRUE"
       TYPE: "PAPER"
-      MEMORY: "4G"
+      MAX_MEMORY: "10G"
       VERSION: "1.21.1"
       SEED: "-2243392742249635263"
-      UID: 1000
-      GID: 1000
+      UID: 0
+      GID: 0
     volumes:
-      - /syno/docker/minecraft:/data
+      - minecraft:/data
+volumes:
+  minecraft:
+    driver_opts:
+      type: nfs
+      o: "addr=192.168.10.2,nfsvers=4,rw"
+      device: ":/volume1/01_Docker/minecraft"
