@@ -47,7 +47,9 @@ TEMPL_FILE=$(basename $TEMPL_URL)
 GITHUB_RUNNER_FILE=$(basename $GITHUB_RUNNER_URL)
 
 # Get the next available ID from Proxmox
-PCTID=$(pvesh get /cluster/nextid)
+DEFAULT_PCTID=$(pvesh get /cluster/nextid)
+read -r -e -p "pve ID [$DEFAULT_PCTID]: " input_pve_id
+PCTID=${input_pve_id:-$DEFAULT_PCTID}
 
 # Download Ubuntu template
 log "-- Downloading $TEMPL_FILE template..."
