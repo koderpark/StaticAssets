@@ -18,7 +18,7 @@ PCT_SWAP="2048"
 PCT_STORAGE="os"
 DEFAULT_IP_ADDR="192.168.20.1/16"
 DEFAULT_GATEWAY="192.168.0.1"
-DISTRO="local:vztmpl/ubuntu-24.04-standard_24.04-2_amd64.tar.zst"
+DISTRO="local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst"
 
 # Ask for GitHub token and owner/repo if they're not set
 if [ -z "$GITHUB_TOKEN" ]; then
