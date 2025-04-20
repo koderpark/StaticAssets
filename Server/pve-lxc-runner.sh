@@ -10,7 +10,6 @@ set -e
 
 # Variables
 GITHUB_RUNNER_URL="https://github.com/actions/runner/releases/download/v2.321.0/actions-runner-linux-x64-2.321.0.tar.gz"
-TEMPL_URL="http://download.proxmox.com/images/system/ubuntu-24.10-standard_24.10-1_amd64.tar.zst"
 PCTSIZE="20G"
 PCT_ARCH="amd64"
 PCT_CORES="4"
@@ -19,6 +18,7 @@ PCT_SWAP="2048"
 PCT_STORAGE="os"
 DEFAULT_IP_ADDR="192.168.20.1/16"
 DEFAULT_GATEWAY="192.168.0.1"
+DISTRO="local:vztmpl/ubuntu-24.04-standard_24.04-2_amd64.tar.zst"
 
 # Ask for GitHub token and owner/repo if they're not set
 if [ -z "$GITHUB_TOKEN" ]; then
@@ -43,7 +43,6 @@ read -r -e -p "Container Gateway IP [$DEFAULT_GATEWAY]: " input_gateway
 GATEWAY=${input_gateway:-$DEFAULT_GATEWAY}
 
 # Get filename from the URLs
-TEMPL_FILE=$(basename $TEMPL_URL)
 GITHUB_RUNNER_FILE=$(basename $GITHUB_RUNNER_URL)
 
 # Get the next available ID from Proxmox
@@ -52,12 +51,9 @@ read -r -e -p "pve ID [$DEFAULT_PCTID]: " input_pve_id
 PCTID=${input_pve_id:-$DEFAULT_PCTID}
 
 # Download Ubuntu template
-log "-- Downloading $TEMPL_FILE template..."
-curl -q -C - -o "$TEMPL_FILE" $TEMPL_URL
-
 # Create LXC container
 log "-- Creating LXC container with ID:$PCTID"
-pct create "$PCTID" "$TEMPL_FILE" \
+pct create "$PCTID" "$DISTRO" \
    -arch $PCT_ARCH \
    -ostype ubuntu \
    -hostname github-runner-proxmox-$(openssl rand -hex 3) \
@@ -102,6 +98,3 @@ pct exec "$PCTID" -- bash -c "mkdir actions-runner && cd actions-runner &&\
     RUNNER_ALLOW_RUNASROOT=1 ./config.sh --unattended --url https://github.com/$OWNERREPO --token $RUNNER_TOKEN &&\
     ./svc.sh install root &&\
     ./svc.sh start"
-
-# Delete the downloaded Ubuntu template
-rm "$TEMPL_FILE"
