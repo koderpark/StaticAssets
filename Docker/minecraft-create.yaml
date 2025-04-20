@@ -1,0 +1,29 @@
+version: "3"
+services:
+  minecraft:
+    image: itzg/minecraft-server:latest
+    container_name: minecraft-create
+    tty: true
+    stdin_open: true
+    ports:
+      - "25565:25565"
+      - "8123:8123"
+    environment:
+      EULA: "TRUE"
+      TYPE: "FABRIC"
+      MAX_MEMORY: "8G"
+      VERSION: "1.20.1"
+      SEED: "-5496460996940308674"
+      UID: 0
+      GID: 0
+      FABRIC_LOADER_VERSION: "0.16.9"
+    volumes:
+      - minecraft-create:/data
+volumes:
+  minecraft-create:
+    driver_opts:
+      type: nfs
+      o: "addr=192.168.10.2,nfsvers=4,rw"
+      device: ":/volume1/01_Docker/minecraft-create"
+
+2434530023851515295

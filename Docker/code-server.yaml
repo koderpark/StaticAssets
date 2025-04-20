@@ -4,15 +4,23 @@ services:
     image: lscr.io/linuxserver/code-server:latest
     container_name: code-server
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=0
+      - PGID=0
       - TZ=Asia/Seoul
       - PASSWORD=${PASSWORD}
       - SUDO_PASSWORD=${PASSWORD}
-      - PROXY_DOMAIN=code.koder.page
+      - PROXY_DOMAIN=${URL}
       - DEFAULT_WORKSPACE=/config/workspace
     volumes:
-      - /syno/docker/code-server:/config
+      - code-server:/config
     ports:
       - 8443:8443
+      - 27121:27121
     restart: unless-stopped
+
+volumes:
+  code-server:
+    driver_opts:
+      type: nfs
+      o: "addr=192.168.10.2,vers=4.1,rw"
+      device: ":/volume1/01_Docker/code-server"
