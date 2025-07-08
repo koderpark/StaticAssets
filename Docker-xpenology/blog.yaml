@@ -17,7 +17,7 @@ services:
       database__connection__password: ${MYSQL}
       database__connection__database: ghost
     volumes:
-      - ghost:/var/lib/ghost/content
+      - /volume1/01_Docker/ghost:/var/lib/ghost/content
 
   db:
     container_name: blog-db
@@ -29,16 +29,4 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL}
     volumes:
-      - ghost-db:/var/lib/mysql
-
-volumes:
-  ghost:
-    driver_opts:
-      type: nfs
-      o: "addr=192.168.10.2,vers=4.1,rw"
-      device: ":/volume1/01_Docker/ghost"
-  ghost-db:
-    driver_opts:
-      type: nfs
-      o: "addr=192.168.10.2,vers=4.1,rw"
-      device: ":/volume1/01_Docker/ghost-db"
+      - /volume1/01_Docker/ghost-db:/var/lib/mysql

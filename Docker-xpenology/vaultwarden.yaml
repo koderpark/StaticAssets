@@ -1,0 +1,9 @@
+version: "3"
+services:
+  vaultwarden:
+    container_name: vaultwarden
+    image: vaultwarden/server:latest
+    volumes:
+      - /volume1/01_Docker/vaultwarden:/data/
+    ports:
+      - 10001:80

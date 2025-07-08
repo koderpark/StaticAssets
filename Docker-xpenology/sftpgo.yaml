@@ -1,0 +1,13 @@
+version: "3.1"
+
+services:
+  mysql:
+    container_name: sftpgo
+    image: drakkan/sftpgo:latest
+    user: "1026:100"
+    ports:
+      - 8080:8080
+      - 2022:2022
+    volumes:
+      - /volume1/01_Docker/sftpgo/data:/srv/sftpgo
+      - /volume1/01_Docker/sftpgo/home:/var/lib/sftpgo

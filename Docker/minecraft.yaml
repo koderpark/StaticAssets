@@ -11,7 +11,7 @@ services:
     environment:
       EULA: "TRUE"
       TYPE: "PAPER"
-      MAX_MEMORY: "10G"
+      MAX_MEMORY: "4G"
       VERSION: "1.21.1"
       SEED: "-2243392742249635263"
       UID: 0

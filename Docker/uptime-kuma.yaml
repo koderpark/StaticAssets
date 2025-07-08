@@ -1,0 +1,18 @@
+version: "3.3"
+
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma
+    container_name: uptime-kuma
+    volumes:
+      - kuma:/app/data
+    ports:
+      - 10100:3001 # <Host Port>:<Container Port>
+    restart: always
+
+volumes:
+  kuma:
+    driver_opts:
+      type: nfs
+      o: "addr=192.168.10.2,nfsvers=4,rw"
+      device: ":/volume1/01_Docker/uptime-kuma"

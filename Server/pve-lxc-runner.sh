@@ -98,3 +98,11 @@ pct exec "$PCTID" -- bash -c "mkdir actions-runner && cd actions-runner &&\
     RUNNER_ALLOW_RUNASROOT=1 ./config.sh --unattended --url https://github.com/$OWNERREPO --token $RUNNER_TOKEN &&\
     ./svc.sh install root &&\
     ./svc.sh start"
+
+# disable apparmor
+echo "
+lxc.apparmor.raw: mount,
+lxc.apparmor.profile: unconfined
+lxc.cgroup.devices.allow: a
+lxc.cap.drop:
+" >> /etc/pve/lxc/$PCTID.conf

@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  nginx:
+    container_name: nginx
+    image: "jc21/nginx-proxy-manager:2.12.3"
+    restart: unless-stopped
+    ports:
+      - "81:80" # Public HTTP Port
+      - "444:443" # Public HTTPS Port
+      - "82:81" # Admin Web Port
+      - "27120:27120"
+    volumes:
+      - /volume1/01_Docker/nginx/data:/data
+      - /volume1/01_Docker/nginx/letsencrypt:/etc/letsencrypt

@@ -10,13 +10,13 @@ services:
       - "8123:8123"
     environment:
       EULA: "TRUE"
-      TYPE: "FABRIC"
+      MODPACK_PLATFORM: AUTO_CURSEFORGE
+      CF_SLUG: just-create-smp
+      CF_API_KEY: ${CF_API_KEY}
       MAX_MEMORY: "8G"
-      VERSION: "1.20.1"
-      SEED: "-5496460996940308674"
+      SEED: "-4685302507262399715"
       UID: 0
       GID: 0
-      FABRIC_LOADER_VERSION: "0.16.9"
     volumes:
       - minecraft-create:/data
 volumes:
@@ -25,5 +25,3 @@ volumes:
       type: nfs
       o: "addr=192.168.10.2,nfsvers=4,rw"
       device: ":/volume1/01_Docker/minecraft-create"
-
-2434530023851515295
