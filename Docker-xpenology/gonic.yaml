@@ -1,0 +1,16 @@
+version: "3"
+services:
+  gonic:
+    container_name: gonic
+    privileged: true
+    image: sentriz/gonic:latest
+    ports:
+      - 4747:80
+    restart: always
+    environment:
+      GONIC_EXCLUDE_PATTERN: "@eadir"
+    volumes:
+      - /volume1/01_Docker/gonic/playlists:/playlists
+      - /volume1/01_Docker/gonic/podcasts:/data
+      - /volume1/01_Docker/gonic/data:/music
+      - /volume2/02_Media/Music:/podcasts

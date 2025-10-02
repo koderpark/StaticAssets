@@ -1,0 +1,25 @@
+version: "3"
+services:
+  minecraft-dadas:
+    image: itzg/minecraft-server:latest
+    container_name: minecraft-dadas
+    tty: true
+    stdin_open: true
+    ports:
+      - "25575:25565"
+      - "8123:8123"
+    environment:
+      EULA: "TRUE"
+      TYPE: "PAPER"
+      MAX_MEMORY: "8G"
+      VERSION: "1.21.8"
+      UID: 0
+      GID: 0
+    volumes:
+      - minecraft:/data
+volumes:
+  minecraft:
+    driver_opts:
+      type: nfs
+      o: "addr=192.168.10.2,nfsvers=4,rw"
+      device: ":/volume1/01_Docker/minecraft-dadas"

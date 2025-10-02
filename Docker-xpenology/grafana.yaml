@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  loki:
+    image: grafana/loki:latest
+    container_name: loki
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml -config.expand-env=true
+    volumes:
+      - /volume1/01_Docker/grafana/loki.yaml:/etc/loki/local-config.yaml -config.expand-env=true
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    user: "1026:100"
+    ports:
+      - "10003:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - /volume1/01_Docker/grafana/grafana:/var/lib/grafana
