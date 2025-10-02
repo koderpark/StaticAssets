@@ -5,5 +5,5 @@ services:
     volumes:
       - /var/log:/var/log
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
-      - ./promtail.yml:/etc/promtail/config.yml
+      - ./promtail.yaml:/etc/promtail/config.yml
     command: -config.file=/etc/promtail/config.yml
